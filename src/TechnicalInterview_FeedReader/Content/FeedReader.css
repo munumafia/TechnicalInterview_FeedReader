@@ -1,0 +1,58 @@
+﻿html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#container {
+    height: 100%;
+}
+
+#feedList {
+    float: left;
+    width: 20%;
+    border: solid 1px black;
+    height: 90%;
+}
+
+#body {
+    float: left;
+    width: 70%;
+    margin-left: 10px;
+}
+
+#storyList {
+    width: 100%;
+    border: solid 1px black;
+    margin-bottom: 50px;
+    height: 20%;
+}
+
+#newsBody {
+    border: solid 1px black;
+    height: 70%;
+}
+
+#header {
+    display: block;
+    width: 100%;
+}
+
+.clear-fix:before, .clear-fix:after {
+    content: " ";
+    display: table;
+}
+
+.clear-fix:after {
+    clear: both;
+}
+
+.clear-fix {
+    *zoom: 1;
+}
