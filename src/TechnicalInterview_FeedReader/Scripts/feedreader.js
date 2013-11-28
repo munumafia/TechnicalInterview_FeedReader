@@ -15,11 +15,12 @@
     /// STORY CLASS
     ////////////////////////////////////////
 
-    var Story = function(id, title, body, url, publishedOn, isRead) {
+    var Story = function(id, title, body, url, publishedOn, isRead, author) {
         this.id = ko.observable(id);
         this.title = ko.observable(title);
         this.publishedOn = ko.observable(publishedOn);
         this.isRead = ko.observable(isRead);
+        this.author = ko.observable(author);
     };
 
     ////////////////////////////////////////
@@ -56,24 +57,37 @@
     };
     
     ////////////////////////////////////////
-    /// MAIN VIEW MODEL CLASS
+    /// ADD FEED VIEWMODEL CLASS
+    ////////////////////////////////////////
+
+    var AddFeedViewModel = function() {
+        this.url = ko.observable();
+    };
+    
+    ////////////////////////////////////////
+    /// MAIN VIEWMODEL CLASS
     ////////////////////////////////////////
 
     var MainViewModel = function(apiUri) {
         this.feedReader = new FeedReader(apiUri);
         this.feeds = ko.observableArray();
         this.stories = ko.observableArray();
+        this.addFeedModel = new AddFeedViewModel();
     };
 
     MainViewModel.prototype.showAddFeedDialog = function() {
-        // Use Bootstrap API to show the "Add Feed"
-        // dialog
+        $('#addFeedModal').modal("show");
     };
 
     MainViewModel.prototype.addFeed = function() {
         // Use FeedReader class to add the feed, then
         // add the returned Feed object to the list
         // of feeds
+    };
+
+    MainViewModel.prototype.closeAddFeedDialog = function() {
+        // Use Bootstrap API to close the "Add Feed" 
+        // dialog
     };
 
     MainViewModel.prototype.refreshFeeds = function() {
