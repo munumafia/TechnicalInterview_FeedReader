@@ -23,9 +23,11 @@ namespace TechnicalInterview_FeedReader
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+            bundles.Add(new ScriptBundle("~/bundles/feedreader").Include(
                         "~/Scripts/bootstrap.js",
-                        "~/Scripts/jquery-{version}.js"
+                        "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/knockout-{version}.js",
+                        "~/Scripts/feedreader.js"
                 ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"));
