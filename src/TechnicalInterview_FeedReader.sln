@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechnicalInterview_FeedRead
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechnicalInterview_FeedReader.Data", "TechnicalInterview_FeedReader.Data\TechnicalInterview_FeedReader.Data.csproj", "{8F43EB87-FAB4-445A-AC99-AF59F86A6327}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechnicalInterval_FeedReader.Services", "TechnicalInterval_FeedReader.Services\TechnicalInterval_FeedReader.Services.csproj", "{E937D12C-1F1A-4545-B4EE-9E64E27601E3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{8F43EB87-FAB4-445A-AC99-AF59F86A6327}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F43EB87-FAB4-445A-AC99-AF59F86A6327}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F43EB87-FAB4-445A-AC99-AF59F86A6327}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E937D12C-1F1A-4545-B4EE-9E64E27601E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E937D12C-1F1A-4545-B4EE-9E64E27601E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E937D12C-1F1A-4545-B4EE-9E64E27601E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E937D12C-1F1A-4545-B4EE-9E64E27601E3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

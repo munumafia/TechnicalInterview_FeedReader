@@ -17,14 +17,11 @@ namespace TechnicalInterview_FeedReader.Data.Entities
 
         public int Id { get; set; }
 
-        [Required]
         public string UserName { get; set; }
 
-        [Required]
         public string EmailAddress { get; set; }
 
-        [Required]
-        public DateTime CreatedOn { get; set; }
+        public DateTime? CreatedOn { get; set; }
 
         public virtual ICollection<Feed> Feeds { get; set; }
     }

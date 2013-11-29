@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TechnicalInterval_FeedReader.Services.Feeds;
+using TechnicalInterview_FeedReader.Data.Repository;
 
 namespace TechnicalInterview_FeedReader.Controllers
 {
@@ -10,7 +12,12 @@ namespace TechnicalInterview_FeedReader.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
+            var feedParser = new FeedParser();
+            var feedRepo = new FeedRepository();
+            var feedService = new FeedService(feedRepo, feedParser);
+
+            const string url = "http://www.hanselman.com/blog/SyndicationService.asmx/GetRss";
+            feedService.AddSubscription(null, url);
 
             return View();
         }
