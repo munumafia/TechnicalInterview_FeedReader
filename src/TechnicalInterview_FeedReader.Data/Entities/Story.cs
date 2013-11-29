@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TechnicalInterview_FeedReader.Data.Entities
 {
-    public class Story
+    public class Story : IEntity
     {
         [Key]
         public int Id { get; set; }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace TechnicalInterview_FeedReader.Data.Entities
 {
-    public class User
+    public class User : IEntity
     {
         public User()
         {
