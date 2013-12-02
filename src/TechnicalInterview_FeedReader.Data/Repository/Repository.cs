@@ -36,5 +36,10 @@ namespace TechnicalInterview_FeedReader.Data.Repository
         {
             _feedContext.Set<TEntity>().Add(entity);
         }
+
+        public IQueryable<TEntity> GetAll()
+        {
+            return _feedContext.Set<TEntity>();
+        }
     }
 }

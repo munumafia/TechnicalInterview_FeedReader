@@ -31,14 +31,31 @@
         this.apiUri = apiUri;
     };
 
-    FeedReader.prototype.getFeeds = function() {
-        // Return a promise containing Ajax
-        // response
+    FeedReader.prototype.getFeeds = function () {
+        var uri = this.apiUri + "/feeds/";
+        return this._mappedAjaxRequest(uri, "GET", function(feed) {
+            return new Feed(
+                feed.Id,
+                feed.Name,
+                feed.Url,
+                feed.UnreadCount
+            );
+        });
     };
 
     FeedReader.prototype.getStoriesForFeed = function(feedId) {
-        // Return a promise containing Ajax
-        // response
+        var uri = this.apiUri + "/feeds/" + feedId + "/stories/";
+        return this._mappedAjaxRequest(uri, "GET", function(story) {
+            return new Story(
+                story.Id,
+                story.Title,
+                story.Body,
+                story.Url,
+                story.PublishedOn,
+                story.IsRead,
+                ""
+            );
+        });
     };
 
     FeedReader.prototype.addFeed = function(feedUrl) {
@@ -54,6 +71,25 @@
     FeedReader.prototype.refreshFeeds = function() {
         // Return a promise containing Ajax
         // response
+    };
+
+    FeedReader.prototype._mappedAjaxRequest = function(url, method, mapper) {
+        var deferred = $.Deferred();
+
+        $.ajax({
+            url: url,
+            method: method,
+            contentType: "application/json",
+            success: function(data) {
+                var mapped = $.map(data, mapper);
+                deferred.resolve(mapped);
+            },
+            failure: function() {
+                deferred.reject();
+            }
+        });
+
+        return deferred.promise();
     };
     
     ////////////////////////////////////////
@@ -73,41 +109,70 @@
         this.feeds = ko.observableArray();
         this.stories = ko.observableArray();
         this.addFeedModel = new AddFeedViewModel();
-    };
+        this.currentFeed = null;
 
-    MainViewModel.prototype.showAddFeedDialog = function() {
-        $('#addFeedModal').modal("show");
-    };
+        var self = this;
 
-    MainViewModel.prototype.addFeed = function() {
-        // Use FeedReader class to add the feed, then
-        // add the returned Feed object to the list
-        // of feeds
-    };
+        self.showAddFeedDialog = function() {
+            $('#addFeedModal').modal("show");
+        };
 
-    MainViewModel.prototype.closeAddFeedDialog = function() {
-        // Use Bootstrap API to close the "Add Feed" 
-        // dialog
-    };
+        self.addFeed = function() {
+            // Use FeedReader class to add the feed, then
+            // add the returned Feed object to the list
+            // of feeds    
+        };
+        
+        self.closeAddFeedDialog = function () {
+            // Use Bootstrap API to close the "Add Feed" 
+            // dialog
+        };
+        
+        self.refreshFeeds = function () {
+            // Use FeedReader class to refresh all the
+            // feeds
+        };
+        
+        self.getStories = function (feed) {
+            var that = this;
 
-    MainViewModel.prototype.refreshFeeds = function() {
-        // Use FeedReader class to refresh all the
-        // feeds
-    };
+            var id = feed.id();
+            self.feedReader.getStoriesForFeed(id).done(function (stories) {
+                that.stories.removeAll();
+                $.each(stories, function (idx, story) {
+                    that.stories.push(story);
+                });
+            });
+        };
+        
+        self.getStories = function (feed) {
+            var that = this;
 
-    MainViewModel.prototype.getStories = function() {
-        // Use FeedReader class to get list of stories
-        // for the currently selected feed
-    };
+            var id = feed.id();
+            self.feedReader.getStoriesForFeed(id).done(function (stories) {
+                that.stories.removeAll();
+                $.each(stories, function (idx, story) {
+                    that.stories.push(story);
+                });
+            });
+        };
+        
+        self.viewStory = function () {
+            // Handles a click on an entry in the story list on the screen
+            // and displays the story body
+        };
+        
+        self._getFeeds = function () {
+            var that = this;
 
-    MainViewModel.prototype.viewStory = function() {
-        // Handles a click on an entry in the story list on the screen
-        // and displays the story body
-    };
-
-    MainViewModel.prototype._getFeeds = function() {
-        // Helper method used to load the initial list
-        // of feeds the user has subscribed to
+            self.feedReader.getFeeds().done(function (data) {
+                $.each(data, function (idx, feed) {
+                    that.feeds.push(feed);
+                });
+            });
+        };
+        
+        this._getFeeds();
     };
 
     ////////////////////////////////////////

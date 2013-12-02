@@ -13,5 +13,6 @@ namespace TechnicalInterview_FeedReader.Data.Repository
         void SaveChanges();
         void Delete(TEntity entity);
         void Add(TEntity entity);
+        IQueryable<TEntity> GetAll();
     }
 }

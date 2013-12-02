@@ -19,13 +19,8 @@
             <input type="button" id="addFeedBtn" value="Add Feed" data-bind="click: showAddFeedDialog"/>
             <input type="button" id="refreshFeedsBtn" value="Refresh Feeds" data-bind="click: refreshFeeds"/>
         </div>
-        <div id="feedList">
-            <div>
-                <span>View All</span>
-            </div>
-            <div data-bind="foreach: feeds">
-                <span data-bind="text: title"></span>
-            </div>
+        <div id="feedList" data-bind="foreach: feeds">
+            <span data-bind="text: name, click: $root.getStories"/>
         </div>
         <div id="body" class="clear-fix">
             <div id="storyList">
