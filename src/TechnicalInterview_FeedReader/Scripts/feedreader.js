@@ -18,6 +18,7 @@
     var Story = function(id, title, body, url, publishedOn, isRead, author) {
         this.id = ko.observable(id);
         this.title = ko.observable(title);
+        this.body = ko.observable(body);
         this.publishedOn = ko.observable(publishedOn);
         this.isRead = ko.observable(isRead);
         this.author = ko.observable(author);
@@ -109,7 +110,8 @@
         this.feeds = ko.observableArray();
         this.stories = ko.observableArray();
         this.addFeedModel = new AddFeedViewModel();
-        this.currentFeed = null;
+        this.currentFeed = ko.observable();
+        this.currentStory = ko.observable(new Story());
 
         var self = this;
 
@@ -146,20 +148,19 @@
         };
         
         self.getStories = function (feed) {
-            var that = this;
-
             var id = feed.id();
             self.feedReader.getStoriesForFeed(id).done(function (stories) {
-                that.stories.removeAll();
+                self.stories.removeAll();
                 $.each(stories, function (idx, story) {
-                    that.stories.push(story);
+                    self.stories.push(story);
                 });
             });
         };
         
-        self.viewStory = function () {
+        self.viewStory = function (story) {
             // Handles a click on an entry in the story list on the screen
             // and displays the story body
+            self.currentStory(story);
         };
         
         self._getFeeds = function () {
