@@ -11,8 +11,11 @@ using TechnicalInterview_FeedReader.Models;
 
 namespace TechnicalInterview_FeedReader.Controllers
 {
+    [RoutePrefix("api/feeds")]
     public class FeedsController : ApiController
     {
+        [HttpGet]
+        [Route("")]
         public IList<FeedModel> Get()
         {
             var feedRepo = new FeedRepository();
@@ -20,10 +23,11 @@ namespace TechnicalInterview_FeedReader.Controllers
         }
 
         [HttpGet]
-        [Route("{id:int}/stories")]
-        public IList<StoryModel> ListStories()
+        [Route("{feedId:int}/stories")]
+        public IList<StoryModel> ListStories(int feedId)
         {
-            return new List<StoryModel>();
+            var feedRepo = new FeedRepository();
+            return feedRepo.FindStories(feedId).Select(ToViewModel).ToList();
         }
 
         private FeedModel ToViewModel(Feed feed)
@@ -34,6 +38,19 @@ namespace TechnicalInterview_FeedReader.Controllers
                     Name = feed.Name,
                     Url = feed.Url,
                     UnreadCount = feed.Stories.Count()
+                };
+        }
+
+        private StoryModel ToViewModel(Story story)
+        {
+            return new StoryModel
+                {
+                    Id = story.Id,
+                    Body = story.Body,
+                    PublishedOn = story.PublishedOn,
+                    IsRead = false,
+                    Title = story.Title,
+                    Url = story.Url
                 };
         }
     }

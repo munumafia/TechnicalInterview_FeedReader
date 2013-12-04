@@ -18,5 +18,10 @@ namespace TechnicalInterview_FeedReader.Data.Repository
         {
             return FeedContext.Feeds.SingleOrDefault(u => u.Url == url);
         }
+
+        public IList<Story> FindStories(int feedId)
+        {
+            return FeedContext.Stories.Where(f => f.Feed.Id == feedId).ToList();
+        }
     }
 }

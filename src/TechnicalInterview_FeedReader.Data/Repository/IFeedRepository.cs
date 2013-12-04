@@ -11,5 +11,6 @@ namespace TechnicalInterview_FeedReader.Data.Repository
     {
         bool FeedExists(string url);
         Feed FindByUrl(string url);
+        IList<Story> FindStories(int feedId);
     }
 }
