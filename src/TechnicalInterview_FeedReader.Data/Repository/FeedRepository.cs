@@ -23,5 +23,11 @@ namespace TechnicalInterview_FeedReader.Data.Repository
         {
             return FeedContext.Stories.Where(f => f.Feed.Id == feedId).ToList();
         }
+
+        public IList<Story> SearchFeeds(string searchText)
+        {
+            return FeedContext.Stories.Where(f => f.Title.Contains(searchText))
+                .ToList();
+        }
     }
 }

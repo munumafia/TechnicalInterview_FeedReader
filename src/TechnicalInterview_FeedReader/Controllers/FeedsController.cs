@@ -35,6 +35,13 @@ namespace TechnicalInterview_FeedReader.Controllers
             return _feedRepository.FindStories(feedId).Select(ToViewModel).ToList();
         }
 
+        [HttpPost]
+        [Route("search")]
+        public IList<StoryModel> SearchFeeds([FromBody]string searchText)
+        {
+            return _feedRepository.SearchFeeds(searchText).Select(ToViewModel).ToList();
+        }
+
         private FeedModel ToViewModel(Feed feed)
         {
             return new FeedModel

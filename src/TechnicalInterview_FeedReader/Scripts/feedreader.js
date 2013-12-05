@@ -34,7 +34,7 @@
 
     FeedReader.prototype.getFeeds = function () {
         var uri = this.apiUri + "/feeds/";
-        return this._mappedAjaxRequest(uri, "GET", function(feed) {
+        return this._mappedAjaxRequest(uri, "GET", null, function(feed) {
             return new Feed(
                 feed.Id,
                 feed.Name,
@@ -44,9 +44,26 @@
         });
     };
 
+    FeedReader.prototype.searchFeeds = function(searchText) {
+        var uri = this.apiUri + "/feeds/search";
+        var data = { '': searchText };
+        
+        return this._mappedAjaxRequest(uri, "POST", data, function(story) {
+            return new Story(
+                story.Id,
+                story.Title,
+                story.Body,
+                story.Url,
+                story.PublishedOn,
+                story.IsRead,
+                ""
+            );
+        });
+    };
+
     FeedReader.prototype.getStoriesForFeed = function(feedId) {
         var uri = this.apiUri + "/feeds/" + feedId + "/stories/";
-        return this._mappedAjaxRequest(uri, "GET", function(story) {
+        return this._mappedAjaxRequest(uri, "GET", null, function(story) {
             return new Story(
                 story.Id,
                 story.Title,
@@ -74,13 +91,14 @@
         // response
     };
 
-    FeedReader.prototype._mappedAjaxRequest = function(url, method, mapper) {
+    FeedReader.prototype._mappedAjaxRequest = function(url, method, data, mapper) {
         var deferred = $.Deferred();
 
         $.ajax({
             url: url,
             method: method,
-            contentType: "application/json",
+            data: data,
+            //contentType: "application/json",
             success: function(data) {
                 var mapped = $.map(data, mapper);
                 deferred.resolve(mapped);
@@ -112,6 +130,7 @@
         this.addFeedModel = new AddFeedViewModel();
         this.currentFeed = ko.observable();
         this.currentStory = ko.observable(new Story());
+        this.searchText = ko.observable();
 
         var self = this;
 
@@ -161,6 +180,19 @@
             // Handles a click on an entry in the story list on the screen
             // and displays the story body
             self.currentStory(story);
+        };
+
+        self.searchFeeds = function(evt) {
+            var that = this;
+            var searchText = self.searchText();
+
+            self.feedReader.searchFeeds(searchText).done(function(data) {
+                // TODO: Mark the "view all feeds" view as current
+                self.stories.removeAll();
+                $.each(data, function(idx, story) {
+                    that.stories.push(story);
+                });
+            });
         };
         
         self._getFeeds = function () {

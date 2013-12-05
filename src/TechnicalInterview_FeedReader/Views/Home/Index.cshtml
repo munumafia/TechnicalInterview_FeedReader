@@ -18,6 +18,8 @@
         <div id="header">
             <input type="button" id="addFeedBtn" value="Add Feed" data-bind="click: showAddFeedDialog"/>
             <input type="button" id="refreshFeedsBtn" value="Refresh Feeds" data-bind="click: refreshFeeds"/>
+            <input type="text" data-bind="value: searchText"/>
+            <input type="button" data-bind="click: searchFeeds" value="Search Feeds"/>
         </div>
         <div id="feedList" data-bind="foreach: feeds">
             <span data-bind="text: name, click: $root.getStories"/>
