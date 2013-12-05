@@ -1,3 +1,5 @@
+using TechnicalInterview_FeedReader.IoC;
+
 [assembly: WebActivator.PreApplicationStartMethod(typeof(TechnicalInterview_FeedReader.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivator.ApplicationShutdownMethodAttribute(typeof(TechnicalInterview_FeedReader.App_Start.NinjectWebCommon), "Stop")]
 
@@ -42,6 +44,10 @@ namespace TechnicalInterview_FeedReader.App_Start
             var kernel = new StandardKernel();
             kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
             kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
+
+            // For Web API. Code taken from http://michaelhubele.com/post/2013/06/06/setting-ninject-aspnet-web-api
+            var resolver = new NinjectResolver(kernel);
+            System.Web.Http.GlobalConfiguration.Configuration.DependencyResolver = resolver;
             
             RegisterServices(kernel);
             return kernel;
@@ -53,6 +59,7 @@ namespace TechnicalInterview_FeedReader.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            kernel.Load("TechnicalInterview_FeedReader.dll");
         }        
     }
 }

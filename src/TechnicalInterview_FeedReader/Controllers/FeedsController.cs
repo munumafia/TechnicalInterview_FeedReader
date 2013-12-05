@@ -14,20 +14,25 @@ namespace TechnicalInterview_FeedReader.Controllers
     [RoutePrefix("api/feeds")]
     public class FeedsController : ApiController
     {
+        private readonly IFeedRepository _feedRepository;
+
+        public FeedsController(IFeedRepository feedRepository)
+        {
+            _feedRepository = feedRepository;
+        }
+
         [HttpGet]
         [Route("")]
         public IList<FeedModel> Get()
         {
-            var feedRepo = new FeedRepository();
-            return feedRepo.GetAll().OrderBy(c => c.Name).Select(ToViewModel).ToList();
+            return _feedRepository.GetAll().OrderBy(c => c.Name).Select(ToViewModel).ToList();
         }
 
         [HttpGet]
         [Route("{feedId:int}/stories")]
         public IList<StoryModel> ListStories(int feedId)
         {
-            var feedRepo = new FeedRepository();
-            return feedRepo.FindStories(feedId).Select(ToViewModel).ToList();
+            return _feedRepository.FindStories(feedId).Select(ToViewModel).ToList();
         }
 
         private FeedModel ToViewModel(Feed feed)
