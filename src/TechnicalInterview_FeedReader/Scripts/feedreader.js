@@ -111,7 +111,7 @@
             data: data,
             //contentType: "application/json",
             success: function(data) {
-                var mapped = $.map(data, mapper);
+                var mapped = data.indexOf ? $.map(data, mapper) : mapper(data);
                 deferred.resolve(mapped);
             },
             failure: function() {
@@ -151,7 +151,7 @@
 
         self.addFeed = function() {
             var feedUrl = self.addFeedModel.url();
-            self.feedReader.addFeed(feedUrl).done(function(feed) {
+            self.feedReader.addFeed(feedUrl).done(function (feed) {
                 $('#addFeedModal').modal("hide");
                 self.feeds.push(feed);
             });
