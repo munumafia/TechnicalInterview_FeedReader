@@ -23,20 +23,24 @@ body {
 
 #body {
     float: left;
-    width: 70%;
+    width: 77%;
     margin-left: 10px;
+    height: 100%;
 }
 
 #storyList {
     width: 100%;
     border: solid 1px black;
-    margin-bottom: 50px;
     height: 20%;
+    max-height: 20%;
+    overflow: auto;
 }
 
 #newsBody {
+    margin-top: 1%;
     border: solid 1px black;
-    height: 70%;
+    height: 73%;
+    overflow: auto;
 }
 
 #header {
