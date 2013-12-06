@@ -15,10 +15,12 @@ namespace TechnicalInterview_FeedReader.Controllers
     public class FeedsController : ApiController
     {
         private readonly IFeedRepository _feedRepository;
+        private readonly IFeedService _feedService;
 
-        public FeedsController(IFeedRepository feedRepository)
+        public FeedsController(IFeedRepository feedRepository, IFeedService feedService)
         {
             _feedRepository = feedRepository;
+            _feedService = feedService;
         }
 
         [HttpGet]
@@ -28,6 +30,14 @@ namespace TechnicalInterview_FeedReader.Controllers
             return _feedRepository.GetAll().OrderBy(c => c.Name).Select(ToViewModel).ToList();
         }
 
+        [HttpPost]
+        [Route("")]
+        public FeedModel Post([FromBody]string feedUrl)
+        {
+            var feed = _feedService.AddSubscription(null, feedUrl);
+            return ToViewModel(feed);
+        }
+            
         [HttpGet]
         [Route("{feedId:int}/stories")]
         public IList<StoryModel> ListStories(int feedId)

@@ -9,6 +9,6 @@ namespace TechnicalInterval_FeedReader.Services.Feeds
 {
     public interface IFeedService
     {
-        void AddSubscription(User user, string feedUrl);
+        Feed AddSubscription(User user, string feedUrl);
     }
 }

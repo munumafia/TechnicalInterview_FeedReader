@@ -19,7 +19,7 @@ namespace TechnicalInterval_FeedReader.Services.Feeds
             _feedParser = feedParser;
         }
 
-        public void AddSubscription(User user, string feedUrl)
+        public Feed AddSubscription(User user, string feedUrl)
         {
             var feed = _feedRepository.FindByUrl(feedUrl);
             if (feed == null)
@@ -27,7 +27,11 @@ namespace TechnicalInterval_FeedReader.Services.Feeds
                 feed = _feedParser.ParseFeed(feedUrl);
                 _feedRepository.Add(feed);
                 _feedRepository.SaveChanges();
+
+                return feed;
             }
+
+            return null;
         }
     }
 }

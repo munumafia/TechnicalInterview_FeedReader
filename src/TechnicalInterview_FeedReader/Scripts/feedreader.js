@@ -34,7 +34,8 @@
 
     FeedReader.prototype.getFeeds = function () {
         var uri = this.apiUri + "/feeds/";
-        return this._mappedAjaxRequest(uri, "GET", null, function(feed) {
+
+        return this._mappedAjaxRequest(uri, "GET", null, function (feed) {
             return new Feed(
                 feed.Id,
                 feed.Name,
@@ -63,7 +64,8 @@
 
     FeedReader.prototype.getStoriesForFeed = function(feedId) {
         var uri = this.apiUri + "/feeds/" + feedId + "/stories/";
-        return this._mappedAjaxRequest(uri, "GET", null, function(story) {
+
+        return this._mappedAjaxRequest(uri, "GET", null, function (story) {
             return new Story(
                 story.Id,
                 story.Title,
@@ -77,8 +79,17 @@
     };
 
     FeedReader.prototype.addFeed = function(feedUrl) {
-        // Return a promise containing Ajax 
-        // response
+        var uri = this.apiUri + "/feeds/";
+        var data = { '': feedUrl };
+
+        return this._mappedAjaxRequest(uri, "POST", data, function(feed) {
+            return new Feed(
+                feed.Id,
+                feed.Name,
+                feed.Url,
+                feed.UnreadCount
+            );
+        });
     };
 
     FeedReader.prototype.getAllStories = function() {
@@ -139,9 +150,11 @@
         };
 
         self.addFeed = function() {
-            // Use FeedReader class to add the feed, then
-            // add the returned Feed object to the list
-            // of feeds    
+            var feedUrl = self.addFeedModel.url();
+            self.feedReader.addFeed(feedUrl).done(function(feed) {
+                $('#addFeedModal').modal("hide");
+                self.feeds.push(feed);
+            });
         };
         
         self.closeAddFeedDialog = function () {
