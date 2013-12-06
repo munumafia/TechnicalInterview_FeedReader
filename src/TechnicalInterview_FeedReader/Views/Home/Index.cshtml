@@ -21,8 +21,11 @@
             <input type="text" data-bind="value: searchText"/>
             <input type="button" data-bind="click: searchFeeds" value="Search Feeds"/>
         </div>
-        <div id="feedList" data-bind="foreach: feeds">
-            <div class="feed" data-bind="text: name, click: $root.getStories"></div>
+        <div id="feedList">
+            <div class="feed" data-bind="click: viewAllStories">View All</div>
+            <div data-bind="foreach: feeds">
+                <div class="feed" data-bind="text: name, click: $root.getStories"></div>    
+            </div>
         </div>
         <div id="body">
             <div id="storyList">

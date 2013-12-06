@@ -78,6 +78,22 @@
         });
     };
 
+    FeedReader.prototype.getAllStories = function() {
+        var uri = this.apiUri + "/stories/";
+
+        return this._mappedAjaxRequest(uri, "GET", null, function (story) {
+            return new Story(
+                story.Id,
+                story.Title,
+                story.Body,
+                story.Url,
+                story.PublishedOn,
+                story.IsRead,
+                ""
+            );
+        });
+    };
+
     FeedReader.prototype.addFeed = function(feedUrl) {
         var uri = this.apiUri + "/feeds/";
         var data = { '': feedUrl };
@@ -90,11 +106,6 @@
                 feed.UnreadCount
             );
         });
-    };
-
-    FeedReader.prototype.getAllStories = function() {
-        // Return a promise containing Ajax
-        // response
     };
 
     FeedReader.prototype.refreshFeeds = function() {
@@ -166,6 +177,15 @@
             // Use FeedReader class to refresh all the
             // feeds
         };
+
+        self.viewAllStories = function () {
+            self.feedReader.getAllStories().done(function(stories) {
+                self.stories.removeAll();
+                $.each(stories, function(idx, story) {
+                    self.stories.push(story);
+                });
+            });
+        };
         
         self.getStories = function (feed) {
             var id = feed.id();
@@ -178,8 +198,6 @@
         };
         
         self.viewStory = function (story) {
-            // Handles a click on an entry in the story list on the screen
-            // and displays the story body
             self.currentStory(story);
         };
 

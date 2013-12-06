@@ -13,6 +13,7 @@ namespace TechnicalInterview_FeedReader.IoC
         public override void Load()
         {
             Bind<IFeedRepository>().To<FeedRepository>().InRequestScope();
+            Bind<IStoryRepository>().To<StoryRepository>().InRequestScope();
         }
     }
 }

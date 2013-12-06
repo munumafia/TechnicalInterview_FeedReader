@@ -69,7 +69,9 @@
     <Compile Include="Repository\FeedRepository.cs" />
     <Compile Include="Repository\IFeedRepository.cs" />
     <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Repository\IStoryRepository.cs" />
     <Compile Include="Repository\Repository.cs" />
+    <Compile Include="Repository\StoryRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
