@@ -29,6 +29,8 @@ namespace TechnicalInterview_FeedReader.Controllers
         [Route("api/feeds")]
         public IList<FeedModel> Get()
         {
+            var username = Thread.CurrentPrincipal.Identity.Name;
+            return _feedRepository.FindForUsername(username).Select(ToViewModel).ToList();
             return _feedRepository.GetAll().OrderBy(c => c.Name).Select(ToViewModel).ToList();
         }
 

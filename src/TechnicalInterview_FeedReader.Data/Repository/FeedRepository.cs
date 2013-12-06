@@ -41,5 +41,12 @@ namespace TechnicalInterview_FeedReader.Data.Repository
 
             user.Feeds.Add(feed);
         }
+
+        public IList<Feed> FindForUsername(string username)
+        {
+            return FeedContext.Users.Where(u => u.UserName == username)
+                .SelectMany(f => f.Feeds)
+                .ToList();
+        }
     }
 }
