@@ -21,17 +21,31 @@ namespace TechnicalInterval_FeedReader.Services.Feeds
 
         public Feed AddSubscription(User user, string feedUrl)
         {
-            var feed = _feedRepository.FindByUrl(feedUrl);
-            if (feed == null)
+            try
             {
-                feed = _feedParser.ParseFeed(feedUrl);
-                _feedRepository.Add(feed);
-                _feedRepository.SaveChanges();
+                var feed = _feedRepository.FindByUrl(feedUrl);
+                if (feed == null)
+                {
+                    feed = _feedParser.ParseFeed(feedUrl);
+                    _feedRepository.Add(feed);
+                    _feedRepository.SaveChanges();
 
-                return feed;
+                    return feed;
+                }
             }
+            catch (Exception ex)
+            {
+                
+                throw;
+            }
+            
 
             return null;
+        }
+
+        public void RefreshFeeds(User user)
+        {
+            throw new NotImplementedException();
         }
     }
 }

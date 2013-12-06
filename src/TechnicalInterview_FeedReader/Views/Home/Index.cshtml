@@ -22,7 +22,7 @@
             <input type="button" data-bind="click: searchFeeds" value="Search Feeds"/>
         </div>
         <div id="feedList" data-bind="foreach: feeds">
-            <span data-bind="text: name, click: $root.getStories"/>
+            <div class="feed" data-bind="text: name, click: $root.getStories"></div>
         </div>
         <div id="body">
             <div id="storyList">

@@ -21,6 +21,10 @@ body {
     height: 90%;
 }
 
+    #feedList div.feed {
+        cursor: pointer;
+    }
+
 #body {
     float: left;
     width: 77%;
@@ -35,6 +39,18 @@ body {
     max-height: 20%;
     overflow: auto;
 }
+    
+    #storyList table {
+        width: 100%;
+    }
+
+    #storyList table thead td {
+        font-weight: bold;
+    }
+
+    #storyList table tbody tr {
+        cursor: pointer;
+    }
 
 #newsBody {
     margin-top: 1%;

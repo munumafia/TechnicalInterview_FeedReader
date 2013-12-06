@@ -52,6 +52,13 @@ namespace TechnicalInterview_FeedReader.Controllers
             return _feedRepository.SearchFeeds(searchText).Select(ToViewModel).ToList();
         }
 
+        [HttpPost]
+        [Route("refresh")]
+        public void RefreshFeeds()
+        {
+                        
+        }
+
         private FeedModel ToViewModel(Feed feed)
         {
             return new FeedModel
