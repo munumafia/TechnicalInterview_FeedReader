@@ -168,18 +168,6 @@
         };
         
         self.getStories = function (feed) {
-            var that = this;
-
-            var id = feed.id();
-            self.feedReader.getStoriesForFeed(id).done(function (stories) {
-                that.stories.removeAll();
-                $.each(stories, function (idx, story) {
-                    that.stories.push(story);
-                });
-            });
-        };
-        
-        self.getStories = function (feed) {
             var id = feed.id();
             self.feedReader.getStoriesForFeed(id).done(function (stories) {
                 self.stories.removeAll();
