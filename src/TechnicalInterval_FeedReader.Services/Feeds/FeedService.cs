@@ -19,28 +19,14 @@ namespace TechnicalInterval_FeedReader.Services.Feeds
             _feedParser = feedParser;
         }
 
-        public Feed AddSubscription(User user, string feedUrl)
+        public Feed AddSubscription(string username, string feedUrl)
         {
-            try
-            {
-                var feed = _feedRepository.FindByUrl(feedUrl);
-                if (feed == null)
-                {
-                    feed = _feedParser.ParseFeed(feedUrl);
-                    _feedRepository.Add(feed);
-                    _feedRepository.SaveChanges();
 
-                    return feed;
-                }
-            }
-            catch (Exception ex)
-            {
-                
-                throw;
-            }
-            
+            var feed = _feedRepository.FindByUrl(feedUrl) ?? _feedParser.ParseFeed(feedUrl);
+            _feedRepository.AddForUser(username, feed);
+            _feedRepository.SaveChanges();
 
-            return null;
+            return feed;
         }
 
         public void RefreshFeeds(User user)

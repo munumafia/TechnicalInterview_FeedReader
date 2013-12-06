@@ -29,5 +29,17 @@ namespace TechnicalInterview_FeedReader.Data.Repository
             return FeedContext.Stories.Where(f => f.Title.Contains(searchText))
                 .ToList();
         }
+
+        public void AddForUser(string username, Feed feed)
+        {
+            var user = FeedContext.Users.FirstOrDefault(u => u.UserName == username);
+            if (user == null)
+            {
+                var errorMessage = string.Format(@"No user with username ""{0}""", username);
+                throw new InvalidOperationException(errorMessage);
+            }
+
+            user.Feeds.Add(feed);
+        }
     }
 }

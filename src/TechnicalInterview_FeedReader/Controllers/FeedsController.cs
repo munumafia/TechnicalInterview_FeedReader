@@ -36,7 +36,8 @@ namespace TechnicalInterview_FeedReader.Controllers
         [Route("api/feeds")]
         public FeedModel Post([FromBody]string feedUrl)
         {
-            var feed = _feedService.AddSubscription(null, feedUrl);
+            var username = Thread.CurrentPrincipal.Identity.Name;
+            var feed = _feedService.AddSubscription(username, feedUrl);
             return ToViewModel(feed);
         }
             
