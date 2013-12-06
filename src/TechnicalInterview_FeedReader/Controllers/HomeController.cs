@@ -12,13 +12,6 @@ namespace TechnicalInterview_FeedReader.Controllers
     {
         public ActionResult Index()
         {
-            var feedParser = new FeedParser();
-            var feedRepo = new FeedRepository();
-            var feedService = new FeedService(feedRepo, feedParser);
-
-            const string url = "http://www.hanselman.com/blog/SyndicationService.asmx/GetRss";
-            feedService.AddSubscription(null, url);
-
             return View();
         }
 
