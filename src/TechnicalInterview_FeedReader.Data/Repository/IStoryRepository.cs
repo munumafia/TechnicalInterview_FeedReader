@@ -10,5 +10,6 @@ namespace TechnicalInterview_FeedReader.Data.Repository
     public interface IStoryRepository : IRepository<Story>
     {
         List<Story> FindAllForUser(string username);
+        bool StoryExists(string externalId);
     }
 }

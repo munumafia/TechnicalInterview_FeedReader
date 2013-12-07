@@ -24,6 +24,8 @@ namespace TechnicalInterview_FeedReader.Data.Entities
         [Required]
         public DateTime PublishedOn { get; set; }
 
+        public string ExternalId { get; set; }
+
         public virtual Feed Feed { get; set; }
 
         public ICollection<StoryStatus> StoryStatuses { get; set; } 

@@ -12,6 +12,7 @@ using TechnicalInterview_FeedReader.Models;
 
 namespace TechnicalInterview_FeedReader.Controllers
 {
+    [Authorize]
     public class FeedsController : ApiController
     {
         private readonly IFeedRepository _feedRepository;
@@ -31,7 +32,6 @@ namespace TechnicalInterview_FeedReader.Controllers
         {
             var username = Thread.CurrentPrincipal.Identity.Name;
             return _feedRepository.FindForUsername(username).Select(ToViewModel).ToList();
-            return _feedRepository.GetAll().OrderBy(c => c.Name).Select(ToViewModel).ToList();
         }
 
         [HttpPost]
@@ -61,7 +61,8 @@ namespace TechnicalInterview_FeedReader.Controllers
         [Route("api/feeds/refresh")]
         public void RefreshFeeds()
         {
-                        
+            var username = Thread.CurrentPrincipal.Identity.Name;
+            _feedService.RefreshFeeds(username);
         }
 
         [HttpGet]

@@ -41,7 +41,8 @@ namespace TechnicalInterval_FeedReader.Services.Feeds
                 Title = i.Title,
                 PublishedOn = i.PublicationDate,
                 Body = i.Description,
-                Url = i.Link.ToString()
+                Url = i.Link.ToString(),
+                ExternalId = i.Guid.Value
             }).ToList();
 
             return rssFeed;
@@ -61,7 +62,8 @@ namespace TechnicalInterval_FeedReader.Services.Feeds
                 Title = i.Title.Content,
                 PublishedOn = i.UpdatedOn,
                 Body = i.Content.Content,
-                Url = "Unknown"
+                Url = i.Id.Uri.ToString(),
+                ExternalId = i.Id.Uri.ToString()
             }).ToList();
 
             return atomFeed;

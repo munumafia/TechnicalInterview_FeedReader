@@ -16,5 +16,10 @@ namespace TechnicalInterview_FeedReader.Data.Repository
                 .OrderByDescending(f => f.PublishedOn)
                 .ToList();
         }
+
+        public bool StoryExists(string externalId)
+        {
+            return true;
+        }
     }
 }

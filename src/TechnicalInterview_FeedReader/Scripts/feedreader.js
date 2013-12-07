@@ -109,8 +109,8 @@
     };
 
     FeedReader.prototype.refreshFeeds = function() {
-        // Return a promise containing Ajax
-        // response
+        var uri = this.apiUri + "/feeds/refresh";
+        return this._mappedAjaxRequest(uri, "POST", null, null);
     };
 
     FeedReader.prototype._mappedAjaxRequest = function(url, method, data, mapper) {
@@ -121,9 +121,13 @@
             method: method,
             data: data,
             //contentType: "application/json",
-            success: function(data) {
-                var mapped = data.indexOf ? $.map(data, mapper) : mapper(data);
-                deferred.resolve(mapped);
+            success: function (data) {
+                if (mapper != null) {
+                    var mapped = data.indexOf ? $.map(data, mapper) : mapper(data);
+                    deferred.resolve(mapped);
+                    return;
+                }
+                deferred.resolve();
             },
             failure: function() {
                 deferred.reject();
@@ -174,8 +178,9 @@
         };
         
         self.refreshFeeds = function () {
-            // Use FeedReader class to refresh all the
-            // feeds
+            self.feedReader.refreshFeeds().done(function() {
+                alert("Feeds refreshed");
+            });
         };
 
         self.viewAllStories = function () {
