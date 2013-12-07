@@ -57,7 +57,7 @@
                 story.Url,
                 story.PublishedOn,
                 story.IsRead,
-                ""
+                story.Author
             );
         });
     };
@@ -73,7 +73,7 @@
                 story.Url,
                 story.PublishedOn,
                 story.IsRead,
-                ""
+                story.Author
             );
         });
     };
@@ -89,7 +89,7 @@
                 story.Url,
                 story.PublishedOn,
                 story.IsRead,
-                ""
+                story.Author
             );
         });
     };

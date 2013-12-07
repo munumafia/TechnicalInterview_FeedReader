@@ -33,12 +33,14 @@
                     <thead>
                         <tr>
                             <td>Title</td>
+                            <td>Feed</td>
                             <td>Date</td>
                         </tr>
                     </thead>
                     <tbody data-bind="foreach: stories">
                         <tr>
                             <td data-bind="text: title, click: $root.viewStory"/>
+                            <td data-bind="text: author"/>
                             <td data-bind="text: publishedOn"/>
                         </tr>
                     </tbody>

@@ -21,5 +21,6 @@ namespace TechnicalInterview_FeedReader.Models
         public string Url { get; set; }
         public DateTime PublishedOn { get; set; }
         public bool IsRead { get; set; }
+        public string Author { get; set; }
     }
 }

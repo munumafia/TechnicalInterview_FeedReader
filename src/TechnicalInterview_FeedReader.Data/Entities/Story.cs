@@ -21,6 +21,8 @@ namespace TechnicalInterview_FeedReader.Data.Entities
         [Required]
         public string Url { get; set; }
 
+        public string Author { get; set; }
+
         [Required]
         public DateTime PublishedOn { get; set; }
 

@@ -42,6 +42,7 @@ namespace TechnicalInterval_FeedReader.Services.Feeds
                 PublishedOn = i.PublicationDate,
                 Body = i.Description,
                 Url = i.Link.ToString(),
+                Author = i.Author,
                 ExternalId = i.Guid.Value
             }).ToList();
 
@@ -63,6 +64,7 @@ namespace TechnicalInterval_FeedReader.Services.Feeds
                 PublishedOn = i.UpdatedOn,
                 Body = i.Content.Content,
                 Url = i.Id.Uri.ToString(),
+                Author = String.Join(", ", i.Authors.Select(a => a.Name)),
                 ExternalId = i.Id.Uri.ToString()
             }).ToList();
 

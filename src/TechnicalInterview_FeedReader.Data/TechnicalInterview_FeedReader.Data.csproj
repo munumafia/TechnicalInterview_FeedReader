@@ -68,6 +68,10 @@
     <Compile Include="Migrations\201312070419395_Add Story External Id.Designer.cs">
       <DependentUpon>201312070419395_Add Story External Id.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201312070439245_Adding Author To Story.cs" />
+    <Compile Include="Migrations\201312070439245_Adding Author To Story.Designer.cs">
+      <DependentUpon>201312070439245_Adding Author To Story.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\FeedRepository.cs" />
@@ -93,6 +97,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201312070419395_Add Story External Id.resx">
       <DependentUpon>201312070419395_Add Story External Id.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312070439245_Adding Author To Story.resx">
+      <DependentUpon>201312070439245_Adding Author To Story.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

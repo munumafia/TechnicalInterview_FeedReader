@@ -93,7 +93,8 @@ namespace TechnicalInterview_FeedReader.Controllers
                     PublishedOn = story.PublishedOn,
                     IsRead = false,
                     Title = story.Title,
-                    Url = story.Url
+                    Url = story.Url,
+                    Author = story.Feed.Name
                 };
         }
     }
